@@ -44,7 +44,7 @@ int main() {
         if (i%6 == 0 && i!=0) cout << endl;
 	}
 	//Affichage pour luminausite//
-    Image img=test.niveauxGris();
+        Image img=test.niveauxGris();
 	img.display();
 
 	//Methode luminosityUp
@@ -52,16 +52,28 @@ int main() {
 	Image luminosityup=img.luminosityUp(1.5);
 	luminosityup.display();
 
-    //Methode luminosityDown//
-    cout << "Methode luminosityDown : " << endl;
-    Image luminositydown=img.luminosityDown(0.5);
+        //Methode luminosityDown//
+        cout << "Methode luminosityDown : " << endl;
+        Image luminositydown=img.luminosityDown(0.5);
 	luminositydown.display();
 
 	/// --- TESTS AUTOMATIQUES ---
 
-	cout << "Test de composanteRouge...\t\t";
-	//if (test.composanteRouge() = {}) cout << "Réussi!" << endl;
-	//else cout << "Raté, test.composanteRouge() = ";
+	cout << endl << "Test de composanteRouge...";
+	vector<vector<int>> vide(4, vector<int> (4,0));
+	Image compoRouge({{0,0,0,0},{0,0,255,255},{0,255,255,255},{255,255,255,255}}, vide, vide);
+	if (test.composanteRouge().comparer(compoRouge)) cout << "\t\tReussi!" << endl;
+	else cout << endl << "Rate..." << endl;
+
+	cout << "Test de getPixel...";
+	vector<int> pix = test.getPixel(3,3);
+	if (pix[0] == 255 && pix[1] == 0 && pix[2] == 0) cout << "\t\t\tReussi!" << endl;
+	else cout << endl << "Rate... test.getPixel(3,3) = " << pix[0] << ", " << pix[1] << ", " << pix[2] << " (attendu: 255, 0, 0)" << endl;
+
+	cout << "Test de detection...";
+	if (test.detection(255, 255, 0) == true) cout << "\t\t\tReussi!" << endl;
+	cout << endl << "Rate... test.detection(255, 255, 0) = " << test.detection(255, 255, 0);
+
 
 	/// ------ FIN DES TESTS ------
 
