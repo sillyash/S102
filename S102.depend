@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1701941324 source:z:\s102-main\main.cpp
+	<iostream>
+	<vector>
+	<string>
+	"image.h"
+
+1701941324 z:\s102-main\image.h
+	<iostream>
+	<vector>
+	<string>
+

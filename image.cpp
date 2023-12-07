@@ -11,7 +11,7 @@ Image::Image(vector<vector<int>> rouge, vector<vector<int>> vert, vector<vector<
 	_rouge = rouge;
 	_vert = vert;
 	_bleu = bleu;
-	
+
 	if (!(rouge.size() == bleu.size() && bleu.size() == vert.size())) {
 		throw invalid_argument("Erreur: les 3 vecteurs 2D n’ont pas les mêmes dimensions.");
 	}
@@ -98,14 +98,29 @@ Image Image::niveauxGris() const
 }
 
 // noirEtBlanc
-Image::noirEtBlanc(int seuil) const
+Image Image::noirEtBlanc(int seuil) const
 {
-	nivGris = niveauxGris();
+    vector<vector<int>> rouge(_largeur, vector<int> (_longueur,0));
+    vector<vector<int>> bleu(_largeur, vector<int> (_longueur,0));
+    vector<vector<int>> vert(_largeur, vector<int> (_longueur,0));
+
 	for (int i=0; i < _longueur; i++)
 	{
 		for (int j=0; j < _largeur; j++)
 		{
-			if ()
+			if(niveauxGris().getPixel(i,j)[0]>seuil)
+            {
+                rouge[i][j]=0;
+                vert[i][j]=0;
+                bleu[i][j]=0;
+            }
+            if(niveauxGris().getPixel(i,j)[0]<seuil)
+            {
+                rouge[i][j]=255;
+                vert[i][j]=255;
+                bleu[i][j]=255;
+            }
 		}
 	}
+	return Image(rouge,vert,bleu);
 }
