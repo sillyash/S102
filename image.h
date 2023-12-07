@@ -24,6 +24,18 @@ class Image {
 		// affichage
 		void display() const;
 
+		// getRouge
+        	vector<vector<int>> getRouge() const;
+
+        	// getVert
+        	vector<vector<int>> getVert() const;
+
+       	 	// getBleu
+        	vector<vector<int>> getBleu() const;
+
+        	// comparer
+        	bool comparer(const Image& img) const;
+
 		// composanteRouge
 		Image composanteRouge() const;
 
@@ -40,7 +52,7 @@ class Image {
 		vector<int> histogrammeGris() const;
 
 		// luminosityUp
-        Image luminosityUp(float lumi) const;
+        	Image luminosityUp(float lumi) const;
 
 		// luminosityDown
 		Image luminosityDown(float lumi) const;
