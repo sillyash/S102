@@ -60,6 +60,30 @@ void Image::display() const
 	cout << endl << endl;
 }
 
+// getRouge
+vector<vector<int>> Image::getRouge() const
+{
+    return _rouge;
+}
+
+// getVert
+vector<vector<int>> Image::getVert() const
+{
+    return _vert;
+}
+
+// getBleu
+vector<vector<int>> Image::getBleu() const
+{
+    return _bleu;
+}
+
+// comparer
+bool Image::comparer(const Image& img) const
+{
+    return ((_rouge == img.getRouge()) && (_vert == img.getVert()) && (_bleu == img.getBleu()));
+}
+
 // composanteRouge()
 Image Image::composanteRouge() const
 {
