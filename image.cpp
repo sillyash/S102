@@ -124,3 +124,15 @@ Image Image::noirEtBlanc(int seuil) const
 	}
 	return Image(rouge,vert,bleu);
 }
+
+vector<int> histogrammeGris() const
+{
+    vector<int>> histoGris = {};
+    int nbPix = 0;
+
+    // pour chaque niveau de gris possible
+    for (int i=0; i<255; i++) {
+        // pour chaque ligne du
+        for (int j=0; j<)
+    }
+}
