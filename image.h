@@ -8,10 +8,10 @@ using namespace std;
 
 class Image {
 	private:
-		vector<vector<int>> _vert; 
+		vector<vector<int>> _vert;
 		vector<vector<int>> _bleu;
 		vector<vector<int>> _rouge;
-		int _longueur; 
+		int _longueur;
 		int _largeur;
 
 	public:
@@ -20,7 +20,7 @@ class Image {
 
 		// getPixel
 		vector<int> getPixel(int i, int j) const;
-		
+
 		// affichage
 		void display() const;
 
@@ -38,8 +38,9 @@ class Image {
 
 		// luminosityUp
 
+
 		// luminosityDown
-		
+
 };
 
 #endif // IMAGE_H_INCLUDED
