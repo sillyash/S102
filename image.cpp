@@ -148,3 +148,62 @@ vector<int> Image::histogrammeGris() const
     }
     return histoGris;
 }
+
+
+Image Image::luminosityUp(float lumi) const
+{
+    vector<vector<int>> rouge=_rouge;
+    vector<vector<int>> vert=_vert;
+    vector<vector<int>> bleu=_bleu;
+
+    if(lumi<1){
+        return Image(rouge,vert,bleu);
+    }
+
+    for(int i=0; i<_rouge.size(); i++){
+        for (int j=0; j<_rouge[i].size(); j++){
+            if(rouge[i][j]*lumi>255){
+                rouge[i][j]=255;
+            }
+            else{
+                rouge[i][j]=rouge[i][j]*lumi;
+            }
+            if(vert[i][j]*lumi>255){
+                vert[i][j]=255;
+            }
+            else{
+                vert[i][j]=vert[i][j]*lumi;
+            }
+            if(bleu[i][j]*lumi>255){
+                bleu[i][j]=255;
+            }
+            else{
+                bleu[i][j]=bleu[i][j]*lumi;
+            }
+        }
+    }
+    return Image(rouge,vert,bleu);
+
+}
+
+
+Image Image::luminosityDown(float lumi) const
+{
+    vector<vector<int>> rouge=_rouge;
+    vector<vector<int>> vert=_vert;
+    vector<vector<int>> bleu=_bleu;
+
+    if(lumi>1){
+        return Image(rouge,vert,bleu);
+    }
+
+    for(int i=0; i<_rouge.size(); i++){
+        for (int j=0; j<_rouge[i].size(); j++){
+            rouge[i][j]=rouge[i][j]*lumi;
+            vert[i][j]=vert[i][j]*lumi;
+            bleu[i][j]=bleu[i][j]*lumi;
+        }
+    }
+    return Image(rouge,vert,bleu);
+
+}

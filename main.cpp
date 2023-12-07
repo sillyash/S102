@@ -43,6 +43,19 @@ int main() {
         cout << i << " : " << histo[i] << "\t\t";
         if (i%6 == 0 && i!=0) cout << endl;
 	}
+	//Affichage pour luminausite//
+    Image img=test.niveauxGris();
+	img.display();
+
+	//Methode luminosityUp
+	cout << "Methode luminosityUp : " << endl;
+	Image luminosityup=img.luminosityUp(1.5);
+	luminosityup.display();
+
+    //Methode luminosityDown//
+    cout << "Methode luminosityDown : " << endl;
+    Image luminositydown=img.luminosityDown(0.5);
+	luminositydown.display();
 
 	/// --- TESTS AUTOMATIQUES ---
 

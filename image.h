@@ -40,9 +40,10 @@ class Image {
 		vector<int> histogrammeGris() const;
 
 		// luminosityUp
-
+        Image luminosityUp(float lumi) const;
 
 		// luminosityDown
+		Image luminosityDown(float lumi) const;
 
 };
 
