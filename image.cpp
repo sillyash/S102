@@ -231,3 +231,28 @@ Image Image::luminosityDown(float lumi) const
     return Image(rouge,vert,bleu);
 
 }
+
+Image Image::constrasteUp(float val) const
+{
+    vector<vector<int>> rouge=_rouge;
+    vector<vector<int>> vert=_vert;
+    vector<vector<int>> bleu=_bleu;
+
+    if(val<1){
+        return Image(rouge,vert,bleu);
+    }
+
+    for(int i=0; i<_rouge.size(); i++){
+        for (int j=0; j<_rouge[i].size(); j++){
+            if((rouge[i][j]-128) > 0){
+                rouge[i][j] += (rouge[i][j]-128)*val;
+            }
+            else if((rouge[i][j]-128) < 0){
+                rouge[i][j] -= (rouge[i][j]-128)*val;
+            }
+        }
+    }
+    return Image(rouge,vert,bleu);
+
+}
+
