@@ -36,6 +36,9 @@ class Image {
 		// noirEtBlanc
 		Image noirEtBlanc(int seuil) const;
 
+		//histogrammeGris
+		vector<int> histogrammeGris() const;
+
 		// luminosityUp
 
 

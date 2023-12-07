@@ -34,13 +34,21 @@ int main() {
 
 	// Méthode noirEtBlanc()
 	cout << "Noir et blanc:" << endl;
-	test.noirEtBlanc().display();
+	test.noirEtBlanc(254).display();
+
+	//Méthode histogrammeGris()
+	cout << endl;
+	vector<int> histo=test.histogrammeGris();
+	for(int i=0; i<histo.size(); i++) {
+        cout << i << " : " << histo[i] << "\t\t";
+        if (i%6 == 0 && i!=0) cout << endl;
+	}
 
 	/// --- TESTS AUTOMATIQUES ---
 
 	cout << "Test de composanteRouge...\t\t";
-	if (test.composanteRouge() = ) cout << "Réussi!" << endl;
-	else cout << "Raté, test.composanteRouge() = ";
+	//if (test.composanteRouge() = {}) cout << "Réussi!" << endl;
+	//else cout << "Raté, test.composanteRouge() = ";
 
 	/// ------ FIN DES TESTS ------
 

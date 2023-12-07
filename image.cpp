@@ -128,18 +128,18 @@ Image Image::noirEtBlanc(int seuil) const
 // histogrammeGris
 vector<int> Image::histogrammeGris() const
 {
-    vector<int>> histoGris = {};
+    vector<int> histoGris = {};
     int nbPix;
 
     // pour chaque niveau de gris possible dans l'histogramme
-    for (int i=0; i<255; i++) {
+    for (int i=0; i<256; i++) {
         nbPix = 0;
         // pour chaque ligne du niveau de gris de l'image
         for (int j=0; j<_longueur; j++) {
             // pour chaque case
             for (int k=0; k<_largeur; k++) {
                 // si le pixel a la même valeur que la niveau de l'histogramme
-                if (niveauxGris().getPixel()[0] == i) {
+                if (niveauxGris().getPixel(j,k)[0] == i) {
                     nbPix++;
                 }
             }
