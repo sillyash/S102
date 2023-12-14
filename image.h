@@ -6,6 +6,10 @@ using namespace std;
 #ifndef IMAGE_H_INCLUDED
 #define IMAGE_H_INCLUDED
 
+
+const int 	DISPLAY = 1, COMPOROUGE = 2, NIVGRIS = 3, NOIRBLANC = 4, LUMIUP = 5,
+			LUMIDOWN = 6, CONTRAUP = 7, CONTRADOWN = 8, QUIT = 9;
+
 class Image {
 	private:
 		vector<vector<int>> _vert;
@@ -46,8 +50,20 @@ class Image {
 
 		Image luminosityDown(float lumi) const;         // luminosityDown
 
-		Image Image::constrasteUp(float lumi) const;    // contrasteUp
+		Image constrasteUp(float lumi) const;    // contrasteUp
+
+		Image constrasteDown(float lumi) const;  // contrasteDown
 
 };
+
+void loadPicture(const string &picture, vector<vector<int>> &red,
+                                        vector<vector<int>> &green,
+                                        vector <vector<int>> &blue);		// loadPicture
+
+bool validChoice(int choice);							// validChoice
+
+string saisieFichier();									// saisieFichier
+
+int menu();											// menu
 
 #endif // IMAGE_H_INCLUDED

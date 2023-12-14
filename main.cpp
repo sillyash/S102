@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
 #include "image.h"
 
 using namespace std;
@@ -10,7 +11,8 @@ int main() {
 	// Image par défaut dans l'énoncé (cf. image.h > constructeur pour les valeurs)
 	Image test;
 
-	/// ------ TESTS MANUELS ------
+	/// --------------- TESTS MANUELS ---------------
+
 	// Méthode getPixel()
 	cout << "Get pixel (3,3): ";
 	cout << test.getPixel(3,3)[0] << ", " << test.getPixel(3,3)[1] << ", "  << test.getPixel(3,3)[2];
@@ -44,21 +46,21 @@ int main() {
         if (i%6 == 0 && i!=0) cout << endl;
 	}
 
-	//Affichage pour luminausite//
-    Image img=test.niveauxGris();
+	//Affichage pour luminosite//
+    Image img = test.niveauxGris();
 
     cout << endl << endl;
 	//Methode luminosityUp
 	cout << "Methode luminosityUp : " << endl;
-	Image luminosityup=img.luminosityUp(1.5);
+	Image luminosityup = img.luminosityUp(1.5);
 	luminosityup.display();
 
-        //Methode luminosityDown//
-        cout << "Methode luminosityDown : " << endl;
-        Image luminositydown=img.luminosityDown(0.5);
+    //Methode luminosityDown//
+    cout << "Methode luminosityDown : " << endl;
+    Image luminositydown = img.luminosityDown(0.5);
 	luminositydown.display();
 
-	/// --- TESTS AUTOMATIQUES ---
+	/// ------------ TESTS AUTOMATIQUES --------------
 
 	cout << endl << "Test de composanteRouge...";
 	vector<vector<int>> vide(4, vector<int> (4,0));
@@ -76,7 +78,27 @@ int main() {
 	cout << endl << "Rate... test.detection(255, 255, 0) = " << test.detection(255, 255, 0);
 
 
-	/// ------ FIN DES TESTS ------
+	/// --------------- FIN DES TESTS ---------------
+
+	vector<vector<int>> red;
+    vector<vector<int>> green;
+    vector<vector<int>> blue;
+
+    //string nom = saisieFichier();
+    loadPicture("exCouleur.ppm",red,green,blue);
+
+	int choix;
+
+	do {
+		choix = menu();
+
+		switch (choix)
+		{
+			case DISPLAY:
+				test.display();
+		}
+	}
+	while (choix != QUIT);
 
 	return 0;
 }
