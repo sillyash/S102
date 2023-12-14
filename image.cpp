@@ -376,12 +376,12 @@ int menu(){
 
     cout << "\nEntrez:" << endl;
     cout << "\t" << DISPLAY << " - pour afficher l'image" << endl;
-    cout << "\t" << COMPOROUGE << " - pour afficher la composante rouge" << endl;
-    cout << "\t" << NIVGRIS << " - pour afficher les niveaux de gris" << endl;
-    cout << "\t" << NOIRBLANC << " - pour afficher en noir et blanc" << endl;
+    cout << "\t" << COMPOROUGE << " - pour mettre en composante rouge" << endl;
+    cout << "\t" << NIVGRIS << " - pour mettre en niveaux de gris" << endl;
+    cout << "\t" << NOIRBLANC << " - pour mettre en noir et blanc" << endl;
     cout << "\t" << LUMIUP << " - pour augmenter la luminosité" << endl;
     cout << "\t" << LUMIDOWN << " - pour diminiuer la luminosité" << endl;
-    cout << "\t" << CONTRAUP << " - pour augmneter le contraste" << endl;
+    cout << "\t" << CONTRAUP << " - pour augmenter le contraste" << endl;
     cout << "\t" << CONTRADOWN << " - pour diminuer le contraste" << endl;
     cout << "\t" << QUIT << " - pour quitter le programme" << endl;
     cout << ">>> ";
@@ -390,7 +390,7 @@ int menu(){
     while (!validChoice(choice))
     {
         cout << endl << choice << " is not a valid option, please enter again:" << endl << ">>> ";
-        cin >> choice;
+        cin >> choice; cout << endl << endl;
     }
     return choice;
 }

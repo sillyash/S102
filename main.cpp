@@ -46,18 +46,15 @@ int main() {
         if (i%6 == 0 && i!=0) cout << endl;
 	}
 
-	//Affichage pour luminosite//
-    Image img = test.niveauxGris();
-
     cout << endl << endl;
 	//Methode luminosityUp
 	cout << "Methode luminosityUp : " << endl;
-	Image luminosityup = img.luminosityUp(1.5);
+	Image luminosityup = test.luminosityUp(1.5);
 	luminosityup.display();
 
     //Methode luminosityDown//
     cout << "Methode luminosityDown : " << endl;
-    Image luminositydown = img.luminosityDown(0.5);
+    Image luminositydown = test.luminosityDown(0.5);
 	luminositydown.display();
 
 	/// ------------ TESTS AUTOMATIQUES --------------
@@ -87,6 +84,8 @@ int main() {
     //string nom = saisieFichier();
     loadPicture("exCouleur.ppm",red,green,blue);
 
+    Image img(red, green, blue);
+
 	int choix;
 
 	do {
@@ -95,7 +94,7 @@ int main() {
 		switch (choix)
 		{
 			case DISPLAY:
-				test.display();
+				img.display();
 		}
 	}
 	while (choix != QUIT);
