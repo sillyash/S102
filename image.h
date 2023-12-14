@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <vector>
 #include <string>
@@ -19,47 +18,35 @@ class Image {
 		// constructeur (avec valeurs par défaut)
 		Image(vector<vector<int>> rouge={{0,0,0,0},{0,0,255,255},{0,255,255,255},{255,255,255,255}}, vector<vector<int>> vert={{0,0,255,255},{0,255,255,255},{255,255,255,0},{255,255,0,0}}, vector<vector<int>> bleu={{255,255,0,0},{255,0,0,0},{0,0,0,0},{0,0,0,0}});
 
-		// getPixel
-		vector<int> getPixel(int i, int j) const;
+		Image(string filename);                         // constructeur ppm
 
-		// affichage
-		void display() const;
+		vector<int> getPixel(int i, int j) const;       // getPixel
 
-		// getRouge
-        vector<vector<int>> getRouge() const;
+		void display() const;                           // affichage
 
-        // getVert
-        vector<vector<int>> getVert() const;
+        vector<vector<int>> getRouge() const;           // getRouge
 
-        // getBleu
-        vector<vector<int>> getBleu() const;
+        vector<vector<int>> getVert() const;            // getVert
 
-        // comparer
-        bool comparer(const Image& img) const;
+        vector<vector<int>> getBleu() const;            // getBleu
 
-		// composanteRouge
-		Image composanteRouge() const;
+        bool comparer(const Image& img) const;          // comparer
 
-		// detection
-		bool detection(int R, int V, int B) const;
+		Image composanteRouge() const;                  // composanteRouge
 
-		// niveauxGris
-		Image niveauxGris() const;
+		bool detection(int R, int V, int B) const;      // detection
 
-		// noirEtBlanc
-		Image noirEtBlanc(int seuil) const;
+		Image niveauxGris() const;                      // niveauxGris
 
-		//histogrammeGris
-		vector<int> histogrammeGris() const;
+		Image noirEtBlanc(int seuil) const;             // noirEtBlanc
 
-		// luminosityUp
-        Image luminosityUp(float lumi) const;
+		vector<int> histogrammeGris() const;            //histogrammeGris
 
-		// luminosityDown
-		Image luminosityDown(float lumi) const;
+        Image luminosityUp(float lumi) const;           // luminosityUp
 
-		// contrasteUp
-		Image Image::constrasteUp(float lumi) const;
+		Image luminosityDown(float lumi) const;         // luminosityDown
+
+		Image Image::constrasteUp(float lumi) const;    // contrasteUp
 
 };
 
