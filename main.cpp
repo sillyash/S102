@@ -1,103 +1,228 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstdio>
 #include <fstream>
+#include <algorithm>
 #include "image.h"
+#include "menu.h"
+#include "filtre.h"
+#include "mainTest.h"
 
 using namespace std;
 
 int main() {
 
-	// Image par défaut dans l'énoncé (cf. image.h > constructeur pour les valeurs)
-	Image test;
-
-	/// --------------- TESTS MANUELS ---------------
-
-	// Méthode getPixel()
-	cout << "Get pixel (3,3): ";
-	cout << test.getPixel(3,3)[0] << ", " << test.getPixel(3,3)[1] << ", "  << test.getPixel(3,3)[2];
-	cout << endl << endl;
-
-	// Méthode display()
-	cout << "Display:" << endl;
-	test.display();
-
-	// Méthode composanteRouge()
-	cout << "Composante rouge:" << endl;
-	test.composanteRouge().display();
-
-	// Méthode detection()
-	cout << "Detection (255, 255, 0): ";
-	cout << test.detection(255, 255, 0) << endl << endl;
-
-	// Méthode niveauxGris()
-	cout << "Niveaux de gris:" << endl;
-	test.niveauxGris().display();
-
-	// Méthode noirEtBlanc()
-	cout << "Noir et blanc:" << endl;
-	test.noirEtBlanc(254).display();
-
-	//Méthode histogrammeGris()
-	cout << endl;
-	vector<int> histo=test.histogrammeGris();
-	for(int i=0; i<histo.size(); i++) {
-        cout << i << " : " << histo[i] << "\t\t";
-        if (i%6 == 0 && i!=0) cout << endl;
+	// mainTest
+	// à commenter si vous voulez 
+	// un affichage plus léger au démarrage
+	try {
+		maintest();
 	}
-
-    cout << endl << endl;
-	//Methode luminosityUp
-	cout << "Methode luminosityUp : " << endl;
-	Image luminosityup = test.luminosityUp(1.5);
-	luminosityup.display();
-
-    //Methode luminosityDown//
-    cout << "Methode luminosityDown : " << endl;
-    Image luminositydown = test.luminosityDown(0.5);
-	luminositydown.display();
-
-	/// ------------ TESTS AUTOMATIQUES --------------
-
-	cout << endl << "Test de composanteRouge...";
-	vector<vector<int>> vide(4, vector<int> (4,0));
-	Image compoRouge({{0,0,0,0},{0,0,255,255},{0,255,255,255},{255,255,255,255}}, vide, vide);
-	if (test.composanteRouge().comparer(compoRouge)) cout << "\t\tReussi!" << endl;
-	else cout << endl << "Rate..." << endl;
-
-	cout << "Test de getPixel...";
-	vector<int> pix = test.getPixel(3,3);
-	if (pix[0] == 255 && pix[1] == 0 && pix[2] == 0) cout << "\t\t\tReussi!" << endl;
-	else cout << endl << "Rate... test.getPixel(3,3) = " << pix[0] << ", " << pix[1] << ", " << pix[2] << " (attendu: 255, 0, 0)" << endl;
-
-	cout << "Test de detection...";
-	if (test.detection(255, 255, 0) == true) cout << "\t\t\tReussi!" << endl;
-	cout << endl << "Rate... test.detection(255, 255, 0) = " << test.detection(255, 255, 0);
-
-
-	/// --------------- FIN DES TESTS ---------------
-
+	catch (...) {
+		cout << "Tests returned an error: check mainTest.cpp" << endl;
+	}
+	
+	
 	vector<vector<int>> red;
     vector<vector<int>> green;
     vector<vector<int>> blue;
 
-    //string nom = saisieFichier();
-    loadPicture("exCouleur.ppm",red,green,blue);
+	// load picture
+	cout << "\nLecture fichier... (\"images/nom.ppm\" pour acceder au dossier)\n";
+    string nomFichier = saisieFichier();
+	cout << endl;
+    loadPicture(nomFichier,red,green,blue);
 
+	// create Image from picture
     Image img(red, green, blue);
 
-	int choix;
+	// declare variables for menu purposes
+	int choix, seuil, rogner, facteur;
+	float lumi;
+	char saveImg;
 
+	// test
+	printImage(img);
+
+	// menu loop
 	do {
 		choix = menu();
-
 		switch (choix)
 		{
 			case DISPLAY:
-				img.display();
+				printImage(img);
+				break;
+
+			case COMPOROUGE:
+				img = img.composanteRouge();
+				break;
+
+			case NIVGRIS:
+				img = img.niveauxGris();
+				break;
+
+			case NOIRBLANC:
+				cout << "Veuillez entrer un seuil  >>> ";
+				cin >> seuil;
+				img = img.noirEtBlanc(seuil);
+				break;
+
+			case LUMI:
+				choix = menuLUMI();
+				switch(choix){
+					case 1:
+						cout << "Veuillez entrer une luminosite >>> ";
+						cin >> lumi;
+						img= img.luminosityUp(lumi);
+						break;
+
+					case 2:
+						cout << "Veuillez entrer une luminosite >>> ";
+						cin >> lumi;
+						img= img.luminosityDown(lumi);
+						break;
+
+					default:
+						break;
+				}
+				break;
+
+			case CONTRA:
+				choix = menuCONTRA();
+				switch(choix) {
+					case 1:
+						cout << "Veuillez entrer un contraste >>> ";
+						cin >> lumi;
+						img= img.contrasteUp(lumi);
+						break;
+
+					case 2:
+						cout << "Veuillez entrer un constraste >>> ";
+						cin >> lumi;
+						img= img.contrasteDown(lumi);
+						break;
+
+					default:
+						break;
+				}
+				break;
+
+			case ROGNER:
+				choix = menuROGNER();
+				switch(choix){
+					case 1:
+						cout << "Combien de colonnes voulez-vous rogner ? >>> ";
+						cin >> rogner;
+						img = img.rognerD(rogner);
+						break;
+
+					case 2:
+						cout << "Combien de colonnes voulez-vous rogner ? >>> ";
+						cin >> rogner;
+						img = img.rognerG(rogner);
+						break;
+
+					case 3:
+						cout << "Combien de colonnes voulez-vous rogner ? >>> ";
+						cin >> rogner;
+						img = img.rognerH(rogner);
+						break;
+
+					case 4:
+						cout << "Combien de colonnes voulez-vous rogner ? >>> ";
+						cin >> rogner;
+						img = img.rognerB(rogner);
+						break;
+
+					default:
+						break;
+				}
+				break;
+
+			case ROTA: 
+				choix = menuROTA();
+				switch(choix){
+					case 1:
+						img = img.rotationD();
+						break;
+
+					case 2:
+						img = img.rotationG();
+						break;
+
+					default:
+						break;
+				}
+				break;
+
+			case RETOURNEMENT:
+				choix = menuRETOURNE();
+				switch(choix){
+					case 1:
+						img = img.retournementH();
+						break;
+
+					case 2:
+						img = img.retournementV();
+						break;
+
+					default:
+						break;
+				}
+				break;
+
+			case TAILLE:
+				choix = menuTAILLE();
+				switch(choix){
+					case 1:
+						cout << "Quel facteur? >>> ";
+						cin >> facteur;
+						img = img.agrandissement(facteur);
+						break;
+
+					case 2:
+						cout << "Quel facteur? >>> ";
+						cin >> facteur;
+						img = img.retrecissement(facteur);
+						break;
+
+					default:
+						break;
+				}
+				break;
+
+			case FILTRES:
+				choix = menuFILTRES();
+				switch(choix){
+					case 1:
+						img = flouG3.application(img);
+						break;
+
+					case 2:
+						img = flouG5.application(img);
+						break;
+					
+					default:
+						break;
+				}
+				break;
 		}
 	}
 	while (choix != QUIT);
+
+	// demande si l'utilisateur souhaite enregistrer l'image
+	cout << endl << "Souhaitez vous enregistrer l'image ? (y/n)  >>> ";
+	cin >> saveImg;
+	if (saveImg == 'y') {
+		// write Image in a file (ppm format)
+		cout << "\nEcriture du fichier... (\"images/nom.ppm\" pour acceder au dossier)\n";
+		string writePPM = saisieFichier();
+		cout << endl;
+		writePicture(writePPM, img);
+		cout << "\nFichier ecrit! Image sauvegardee.\n";
+	}
+	cout << "\nA bientot!\n";
 
 	return 0;
 }
